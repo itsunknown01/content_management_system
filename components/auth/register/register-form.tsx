@@ -9,8 +9,16 @@ import { RegisterSchema } from "@/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { useState, useTransition } from "react"
+import { register } from "@/actions/register-action"
+import FormError from "../form-error"
+import FormSuccess from "../form-success"
 
 const RegisterForm = () => {
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [loading, startTransition] = useTransition();
+
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -19,6 +27,18 @@ const RegisterForm = () => {
       name: ""
     }
   })
+
+  const Submithandler = (values: z.infer<typeof RegisterSchema>) => {
+    setError("");
+    setSuccess("");
+
+    startTransition(() => {
+      register(values).then((data) => {
+        setError(data.error);
+        setSuccess(data.success);
+      });
+    });
+  };
   
   return (
     <CardWrapper
@@ -29,7 +49,7 @@ const RegisterForm = () => {
     showSocial
     >
      <Form {...form}>
-       <form onSubmit={form.handleSubmit(() => {})} className="space-y-6">
+       <form onSubmit={form.handleSubmit(Submithandler)} className="space-y-6">
         <div className="space-y-4">
            <FormField 
             control={form.control}
@@ -38,7 +58,7 @@ const RegisterForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Enter email" type="email"  />
+                  <Input {...field} disabled={loading} placeholder="Enter email" type="email"  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -51,7 +71,7 @@ const RegisterForm = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Enter email" type="text"  />
+                  <Input {...field} disabled={loading} placeholder="Enter email" type="text"  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -64,14 +84,16 @@ const RegisterForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Enter password" type="email"  />
+                  <Input {...field} disabled={loading} placeholder="Enter password" type="email"  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
            />
         </div>
-        <Button type="submit" className="w-full">
+        <FormError message={error} />
+        <FormSuccess message={success} />
+        <Button type="submit" disabled={loading} className="w-full">
           Login
         </Button>
        </form>
