@@ -3,7 +3,7 @@
 import React from "react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import Heading from "@/components/ui/heading";
-import SocialLogin from "@/components/auth/login/social-login";
+import SocialLogin from "@/components/auth/social-login";
 import BackButton from "@/components/auth/login/back-button";
 
 interface CardWrapperProps {

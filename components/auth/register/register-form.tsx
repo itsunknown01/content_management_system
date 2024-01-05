@@ -84,7 +84,7 @@ const RegisterForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled={loading} placeholder="Enter password" type="email"  />
+                  <Input {...field} disabled={loading} placeholder="Enter password" type="password"  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -94,7 +94,7 @@ const RegisterForm = () => {
         <FormError message={error} />
         <FormSuccess message={success} />
         <Button type="submit" disabled={loading} className="w-full">
-          Login
+          Create an Account
         </Button>
        </form>
      </Form>

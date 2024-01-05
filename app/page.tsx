@@ -2,7 +2,6 @@ import LoginButton from "@/components/auth/login/login-button"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { Poppins } from "next/font/google"
-import { useRouter } from "next/navigation"
 
 const font = Poppins({
   subsets: ["latin"],
