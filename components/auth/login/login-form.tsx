@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { login } from "@/actions/login-action";
 import { useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -96,6 +97,14 @@ const LoginForm = () => {
                       {...field}
                     />
                   </FormControl>
+                  <Button
+                    size="sm"
+                    variant="link"
+                    asChild
+                    className="px-0 font-normal"
+                  >
+                    <Link href="/forgot-password">Forgot password?</Link>
+                  </Button>
                   <FormMessage />
                 </FormItem>
               )}
