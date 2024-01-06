@@ -7,7 +7,7 @@ import CardWrapper from '@/components/auth/card-wrapper'
 import FormSuccess from './form-success'
 import FormError from './form-error'
 import { useSearchParams } from 'next/navigation'
-import { verificaiton } from '@/actions/email-verification'
+import { verificaiton } from '@/actions/auth/email-verification'
 
 const EmailVerificationForm = () => {
   const [error, setError] = useState<string | undefined>("")

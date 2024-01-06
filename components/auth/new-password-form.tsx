@@ -20,7 +20,7 @@ import FormSuccess from "@/components/auth/form-success";
 import { Button } from "@/components/ui/button";
 import { NewPasswordSchema } from "@/schemas";
 import { useSearchParams } from "next/navigation";
-import { newPassword } from "@/actions/new-password";
+import { newPassword } from "@/actions/auth/new-password";
 
 const NewPasswordForm = () => {
   const searchParams = useSearchParams()

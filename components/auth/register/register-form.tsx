@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useState, useTransition } from "react"
-import { register } from "@/actions/register-action"
+import { register } from "@/actions/auth/register-action"
 import FormError from "../form-error"
 import FormSuccess from "../form-success"
 
