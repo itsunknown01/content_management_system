@@ -1,9 +1,9 @@
-import React from 'react'
-import {getUserId} from "@/lib/user"
-import { redirect } from 'next/navigation'
-import { db } from '@/lib/db'
+import StoreNavbar from '@/components/layout/store-navbar'
 import StoreSwitcher from '@/components/layout/store-switcher'
-import StoreNavbar from './store-navbar'
+import { db } from '@/lib/db'
+import { getUserId } from "@/lib/user"
+import { redirect } from 'next/navigation'
+import Logout from '../ui/logout'
 
 const StoreHeader = async () => {
     const userId = await getUserId()
@@ -24,7 +24,7 @@ const StoreHeader = async () => {
         <StoreSwitcher items={stores} />
         <StoreNavbar className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
-          Ayusman gohain
+          <Logout />
         </div>
       </div>
     </div>

@@ -1,0 +1,30 @@
+import {format} from "date-fns"
+import { db } from "@/lib/db"
+import BillboardClient from "@/app/(dashboard)/[storeId]/(routes)/billboards/_components/billboard-client"
+import { billboardColumn } from "@/app/(dashboard)/[storeId]/(routes)/billboards/_components/column"
+
+const BillboardPage = async ({params} : {params : {storeId: string}}) => {
+   const billboards = await db.billboard.findMany({
+    where: {
+      storeId: params.storeId
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+   })
+
+   const formattedData: billboardColumn[] = billboards.map((billboard) => ({
+    id: billboard.id,
+    label: billboard.label,
+    createdAt: format(billboard.createdAt, "MMMM do, yyyy")
+   }))
+    return (
+    <div className="flex-col">
+      <div className="flex-1 space-y-2 pt-6 p-8">
+        <BillboardClient data={formattedData} />
+      </div>
+    </div>
+  )
+}
+
+export default BillboardPage

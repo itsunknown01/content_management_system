@@ -5,6 +5,7 @@ import React from 'react'
 interface HeadingProps {
     title: string
     description: string
+    className?:string
 }
 
 const font = Poppins({
@@ -13,10 +14,10 @@ const font = Poppins({
 })
 
 const Heading = ({
-    title, description
+    title, description,className
 } : HeadingProps) => {
   return (
-    <div className='w-full flex items-center justify-center flex-col gap-y-4'>
+    <div className={className === "store" ? "" : 'w-full flex items-center justify-center flex-col gap-y-4'}>
         <h1 className={cn("text-2xl font-semibold", font.className)}>
             {title}
         </h1>
