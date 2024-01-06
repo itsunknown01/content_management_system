@@ -1,3 +1,4 @@
+import StoreHeader from "@/components/layout/store-header";
 import { db } from "@/lib/db";
 import { getUserId } from "@/lib/user";
 import { redirect } from "next/navigation";
@@ -10,7 +11,7 @@ const StoreIdLayout = async ({
   children: React.ReactNode;
   params: { storeId: string };
 }) => {
-  const userId = await getUserId()
+  const userId = await getUserId();
 
   if (!userId) {
     redirect("/login");
@@ -18,15 +19,20 @@ const StoreIdLayout = async ({
 
   const store = await db.store.findFirst({
     where: {
-        id: params.storeId,
-        userId
-    }
-  })
+      id: params.storeId,
+      userId,
+    },
+  });
 
   if (!store) {
-    redirect("/")
+    redirect("/");
   }
-  return <div>StoreIdLayout</div>;
+  return (
+    <>
+      <StoreHeader />
+      {children}
+    </>
+  );
 };
 
 export default StoreIdLayout;
