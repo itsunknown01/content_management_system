@@ -28,6 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import AlertModal from "@/components/modals/alert-modal";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -43,6 +44,7 @@ interface CategoryMainProps {
 
 const CategoryForm = ({ data, billboards }: CategoryMainProps) => {
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const params = useParams();
   const router = useRouter();
@@ -83,10 +85,33 @@ const CategoryForm = ({ data, billboards }: CategoryMainProps) => {
     }
   };
 
-  const handleDelete = () => {};
+  const handleDelete = async () => {
+    try {
+      setLoading(true);
+      await axios.delete(
+        `/api/${params.storeId}/categories/${params.categoryId}`
+      );
+      router.refresh();
+      router.push(`/${params.storeId}/categories`);
+      toast.success(
+        "Make sure you removed all the products using this category first."
+      );
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+      setOpen(false);
+    }
+  };
 
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={handleDelete}
+        loading={loading}
+      />
       <div className="flex items-center justify-between">
         <Heading className="store" title={title} description={description} />
         {data && (
@@ -94,7 +119,7 @@ const CategoryForm = ({ data, billboards }: CategoryMainProps) => {
             disabled={loading}
             variant="destructive"
             size="sm"
-            onClick={handleDelete}
+            onClick={() => setOpen(true)}
           >
             <Trash className="h-4 w-4" />
           </Button>
