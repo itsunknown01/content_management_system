@@ -1,14 +1,7 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import * as z from "zod";
 import ImageComponent from "@/app/(dashboard)/[storeId]/(routes)/billboards/[billboardId]/_components/image-component";
+import AlertModal from "@/components/modals/alert-modal";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -20,16 +13,16 @@ import {
 } from "@/components/ui/form";
 import Heading from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import AlertModal from "@/components/modals/alert-modal";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Billboard } from "@prisma/client";
+import axios from "axios";
+import { Trash } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import * as z from "zod";
 
 const formSchema = z.object({
   label: z.string().min(1),

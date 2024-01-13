@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { billboardColumn } from "./column";
 import AlertModal from "@/components/modals/alert-modal";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,11 +9,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+import axios from "axios";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
+import { billboardColumn } from "./column";
 
 interface CellActionProps {
   data: billboardColumn;
@@ -30,7 +30,7 @@ const CellAction = ({ data }: CellActionProps) => {
   const handleConfirm = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${data._id}`);
+      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
       toast.success("billboard deleted");
       router.refresh();
     } catch (error) {
@@ -65,12 +65,12 @@ const CellAction = ({ data }: CellActionProps) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => onCopy(data._id)}>
+          <DropdownMenuItem onClick={() => onCopy(data.id)}>
             <Copy className="mr-2 h-4 w-4" /> Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${params.storeId}/billboards/${data._id}`)
+              router.push(`/${params.storeId}/billboards/${data.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" /> Update
