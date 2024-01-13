@@ -8,7 +8,7 @@ export async function DELETE(
   {
     params,
   }: {
-    params: { storeId: string; sizeId: string };
+    params: { storeId: string; colorId: string };
   }
 ) {
   try {
@@ -19,8 +19,8 @@ export async function DELETE(
       return new NextResponse("Unauthenticated", { status: 403 });
     }
 
-    if (!params.sizeId) {
-      return new NextResponse("Size id is required", { status: 400 });
+    if (!params.colorId) {
+      return new NextResponse("Color id is required", { status: 400 });
     }
 
     const existingStore = await db.store.findUnique({
@@ -34,20 +34,20 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 400 });
     }
 
-    const size = await db.size.delete({
-        where: { id: params.sizeId }
+    const color = await db.color.delete({
+        where: { id: params.colorId }
     });
 
-    return NextResponse.json(size);
+    return NextResponse.json(color);
   } catch (error) {
-    console.log("[Sizes_DELETE]", error);
+    console.log("[Colors_DELETE]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { storeId: string; sizeId: string } }
+  { params }: { params: { storeId: string; colorId: string } }
 ) {
   try {
     const session = await auth();
@@ -68,8 +68,8 @@ export async function PATCH(
       return new NextResponse("Value is required", { status: 400 });
     }
 
-    if (!params.sizeId) {
-      return new NextResponse("Size id is required", { status: 400 });
+    if (!params.colorId) {
+      return new NextResponse("Color id is required", { status: 400 });
     }
 
     const existingStore = await db.store.findFirst({
@@ -83,17 +83,17 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 400 });
     }
 
-    const size = await db.size.update({
-     where : { id: params.sizeId },
+    const color = await db.color.update({
+     where : { id: params.colorId },
      data: {
         name,
         value,
       }
     });
 
-    return NextResponse.json(size);
+    return NextResponse.json(color);
   } catch (error) {
-    console.log("[Sizes_PATCH]", error);
+    console.log("[Colors_PATCH]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }

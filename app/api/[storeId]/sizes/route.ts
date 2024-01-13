@@ -50,7 +50,7 @@ export async function POST(
 
     return NextResponse.json(size);
   } catch (error) {
-    console.log("[sizes_POST]", error);
+    console.log("[Sizes_POST]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
