@@ -1,6 +1,6 @@
 "use client";
 
-import ImageComponent from "@/app/(dashboard)/[storeId]/(routes)/billboards/[billboardId]/_components/image-component";
+import ImageComponent from "@/app/(dashboard)/[storeId]/(routes)/billboards/[billboardId]/_components/_components/image-component";
 import AlertModal from "@/components/modals/alert-modal";
 import { Button } from "@/components/ui/button";
 import {

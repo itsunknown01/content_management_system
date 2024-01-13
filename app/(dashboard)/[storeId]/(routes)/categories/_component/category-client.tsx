@@ -22,17 +22,18 @@ const CategoriesClient = ({ data }: CategoriesClientProps) => {
       <div className="flex items-center justify-between pb-6">
         <Heading
           title={`Categories(${data.length})`}
+          className="store"
           description="Manage category for your store"
         />
         <Button
-          onClick={() => router.push(`/${params.storeId}/categories/main`)}
+          onClick={() => router.push(`/${params.storeId}/categories/new`)}
         >
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>
       <Separator />
       <DataTable data={data} searchkey="name" columns={columns} />
-      <Heading title="API" description="API calls for Categories" />
+      <Heading title="API" className="store" description="API calls for Categories" />
       <Separator className="my-6" />
       <ApiList entityName="categories" entityIdName="categoryId" />
     </>
